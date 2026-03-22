@@ -100,8 +100,8 @@ export default function Auth() {
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
               <label className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--liquid-gold)' }}> Lösenord </label>
               {!isSignUp && (
-                <a href="/reset-password" onClick={(e) => { e.preventDefault(); window.location.href = '/reset-password' }} className="text-[10px] uppercase font-bold text-white/40 hover:text-white transition-colors tracking-widest">
-                  (Glömt lösen?)
+                <a href="/reset-password" onClick={(e) => { e.preventDefault(); window.location.href = '/reset-password' }} className="btn-elite-link !text-[10px] !py-1 !px-2">
+                  Glömt lösen?
                 </a>
               )}
             </div>
@@ -134,10 +134,9 @@ export default function Auth() {
             {isSignUp ? 'Redan med i gänget? ' : 'Ny på Tvådje? '}
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="ml-3 font-bold uppercase tracking-widest text-xs transition-colors"
-              style={{ color: 'var(--liquid-gold)' }}
+              className="btn-elite-link ml-3 !lowercase first-letter:uppercase"
             >
-              {isSignUp ? 'Logga In ' : 'Gå med nu '}
+              {isSignUp ? 'Logga In' : 'Gå med nu'}
             </button>
           </p>
         </div>

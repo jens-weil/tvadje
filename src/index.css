@@ -77,8 +77,8 @@ body {
   width: 110%;
   height: 110%;
   background: url('/design/bg_sunset.png') center 40% / cover no-repeat;
-  filter: brightness(0.4) saturate(1.1) contrast(1.2);
-  opacity: 0.6;
+  filter: brightness(0.65) saturate(1.1) contrast(1.1);
+  opacity: 0.75;
   /* Subtle parallax fallback movement */
   animation: subtlePan 30s ease-in-out infinite alternate;
 }
@@ -96,9 +96,10 @@ body {
 .elite-bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(212, 154, 33, 0.1) 0%, transparent 60%),
-    linear-gradient(to bottom, transparent 0%, var(--midnight-pine-dark) 90%);
+  background: radial-gradient(circle at top right, rgba(212, 154, 33, 0.15) 0%, transparent 70%),
+    linear-gradient(to bottom, transparent 0%, var(--midnight-pine-dark) 100%);
   mix-blend-mode: multiply;
+  opacity: 0.8;
 }
 
 .elite-texture-overlay {
@@ -244,6 +245,33 @@ body {
   color: var(--liquid-gold-light);
 }
 
+.btn-elite-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0.3rem;
+  padding: 0.3rem 0.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--elite-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-elite-link:hover {
+  background: rgba(212, 154, 33, 0.08);
+  border-color: var(--liquid-gold);
+  color: var(--liquid-gold-light);
+  transform: translateY(-1px);
+}
+
 /* Inputs */
 .elite-input {
   background: rgba(0, 0, 0, 0.4);
@@ -355,18 +383,18 @@ body {
   margin-bottom: 4rem;
   padding: 1.25rem 2rem;
   border-radius: 20px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--elite-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 @media (max-width: 1024px) {
   .dashboard-layout {
     grid-template-columns: 1fr;
   }
-  
+
   .responsive-header {
     flex-direction: column;
     gap: 1.5rem;
@@ -383,7 +411,8 @@ body {
 }
 
 /* Fix for mobile link highlight */
-a, button {
+a,
+button {
   -webkit-tap-highlight-color: transparent;
 }
 

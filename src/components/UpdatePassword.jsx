@@ -30,9 +30,9 @@ export default function UpdatePassword() {
       <div className="card-elite w-full max-w-[500px] relative overflow-hidden group">
         <button
           onClick={() => window.location.href = '/'}
-          className="inline-flex items-center gap-2 text-xs font-bold mb-10 text-white/40 hover:text-white transition-colors uppercase tracking-widest font-body"
+          className="btn-elite-link mb-10 gap-2"
         >
-          <ArrowLeft size={16} /> Tillbaka till Hem
+          <ArrowLeft size={14} /> Tillbaka till Hem
         </button>
 
         <div className="text-center mb-10">

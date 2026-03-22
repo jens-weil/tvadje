@@ -96,17 +96,17 @@ export default function Profile({ session }) {
         <header className="responsive-header">
           <button
             onClick={() => window.location.href = '/'}
-            className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-white/10 group font-body uppercase tracking-wider text-xs"
+            className="btn-elite-link gap-2 group"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
             <span>Tillbaka</span>
           </button>
 
           <button
             onClick={() => supabase.auth.signOut()}
-            className="flex items-center gap-2 text-xs font-bold text-white/40 hover:text-error transition-colors px-4 py-2 border border-transparent hover:border-error/20 rounded-lg hover:bg-error/5 uppercase tracking-wider font-body"
+            className="btn-elite-link !text-error/60 hover:!text-error !border-transparent hover:!border-error/20 hover:!bg-error/5 gap-2"
           >
-            <LogOut size={16} /> Logga ut
+            <LogOut size={14} /> Logga ut
           </button>
         </header>
 

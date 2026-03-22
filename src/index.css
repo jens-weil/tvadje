@@ -443,3 +443,63 @@ button {
     transform: translateX(100%) rotate(0deg);
   }
 }
+
+/* Carousel Components */
+.carousel-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 10s linear;
+  transform: scale(1);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1.1); /* Slow zoom in effect */
+}
+
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  z-index: 2;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 3rem;
+  display: flex;
+  gap: 0.8rem;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background: var(--liquid-gold);
+  transform: scale(2);
+  box-shadow: 0 0 15px rgba(212, 154, 33, 0.8);
+}
+
+@media (max-width: 768px) {
+  .carousel-dots {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+}

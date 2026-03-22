@@ -7,6 +7,20 @@ export default function Dashboard({ session }) {
   const [participants, setParticipants] = useState([])
   const [isParticipating, setIsParticipating] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const slides = [
+    { url: '/design/bottle.png', alt: 'Norrlands Guld Bottle' },
+    { url: '/design/lifestyle.png', alt: 'Norrlands Guld Lifestyle' },
+    { url: '/design/bg_sunset.png', alt: 'Norrlands Guld Sunset' }
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
 
   function getNextFridayDate() {
     const today = new Date()
@@ -187,12 +201,26 @@ export default function Dashboard({ session }) {
                 overflow: 'hidden',
               }}
             >
-              {/* Dark overlay for readability */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)',
-                zIndex: 1,
-              }} />
+              {/* Carousel Background */}
+              <div className="carousel-container">
+                {slides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
+                    style={{ backgroundImage: `url(${slide.url})` }}
+                  />
+                ))}
+                <div className="carousel-overlay" />
+                <div className="carousel-dots">
+                  {slides.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+                      onClick={() => setCurrentSlide(index)}
+                    />
+                  ))}
+                </div>
+              </div>
 
               <div style={{ position: 'relative', zIndex: 2, maxWidth: 560 }}>
                 <span style={{

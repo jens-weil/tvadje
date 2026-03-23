@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard'
 import Profile from './components/Profile'
 import PasswordReset from './components/PasswordReset'
 import UpdatePassword from './components/UpdatePassword'
+import AcceptInvite from './components/AcceptInvite'
 import { Loader2 } from 'lucide-react'
 
 function App() {
@@ -41,6 +42,17 @@ function App() {
         console.log('Password recovery detected, current path:', location.pathname)
         if (location.pathname !== '/update-password') {
           navigate('/update-password')
+        }
+      }
+      
+      // Handle Invitations
+      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
+        const isInvite = window.location.hash.includes('type=invite') || 
+                         window.location.search.includes('type=invite') ||
+                         session?.user?.app_metadata?.provider === 'email' && !session?.user?.last_sign_in_at
+        
+        if (isInvite && location.pathname !== '/accept-invite') {
+           navigate('/accept-invite')
         }
       }
       setSession(session)
@@ -101,6 +113,7 @@ function App() {
         />
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/update-password" element={<UpdatePassword />} />
+        <Route path="/accept-invite" element={<AcceptInvite />} />
       </Routes>
       </div>
     </>

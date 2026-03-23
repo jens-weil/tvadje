@@ -91,7 +91,7 @@ export default function Profile({ session }) {
   }
 
   return (
-    <div className="container animate-fade-in-up" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '100vh', padding: '4rem 0' }}>
+    <div className="container animate-fade-in-up" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '25vh', padding: '1rem 0' }}>
       <div className="max-w-2xl mx-auto">
         <header className="responsive-header">
           <button
@@ -186,17 +186,17 @@ export default function Profile({ session }) {
               >
                 Maila Återställningslänk
               </button>
-
+              <br></br>
               <div className="p-6 rounded-2xl" style={{ backgroundColor: 'var(--elite-surface)', border: '1px solid var(--elite-border)' }}>
-                <p className="font-serif italic text-sm text-white/60 mb-4 leading-relaxed">
+                <div className="font-serif italic text-sm text-white/60 mb-4 leading-relaxed">
                   "Vi rekommenderar ett starkt och unikt lösenord för din säkerhet i klubben."
-                </p>
+                </div>
                 <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden">
                   <div className="h-full w-2/3 rounded-full" style={{ background: 'linear-gradient(90deg, var(--liquid-gold-dark), var(--liquid-gold-light))' }}></div>
                 </div>
               </div>
             </div>
-
+            {/*
             <div className="mt-12 pt-10" style={{ borderTop: '1px solid var(--elite-border)' }}>
               <h3 className="text-sm font-bold uppercase tracking-widest mb-6 ml-1" style={{ color: 'var(--liquid-gold)' }}>Ändra Lösenord Direkt</h3>
               <form onSubmit={handlePasswordUpdate} className="space-y-6 relative z-10">
@@ -220,6 +220,7 @@ export default function Profile({ session }) {
                 </button>
               </form>
             </div>
+*/}
           </section>
         </main>
       </div>

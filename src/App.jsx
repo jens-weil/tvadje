@@ -16,18 +16,20 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  useEffect(() => {
-    // Check for invite as soon as possible
-    const initialHash = window.location.hash
-    const initialSearch = window.location.search
+  // Capture invite state as early as possible
+  const [initialInvite] = useState(() => 
+    window.location.hash.includes('type=invite') || 
+    window.location.search.includes('type=invite')
+  )
 
+  useEffect(() => {
     const initAuth = async () => {
       try {
         const { data: { session }, error } = await supabase.auth.getSession()
         if (error) throw error
         setSession(session)
         
-        if (initialHash.includes('type=invite') || initialSearch.includes('type=invite')) {
+        if (initialInvite) {
           navigate('/accept-invite', { replace: true })
         }
       } catch (error) {
@@ -53,12 +55,12 @@ function App() {
       
       // Handle Invitations & New Users without profile
       if (session?.user) {
-        const hash = window.location.hash
-        const search = window.location.search
-        const isInviteToken = hash.includes('type=invite') || search.includes('type=invite') || initialHash.includes('type=invite')
+        const isInvite = initialInvite || 
+                         window.location.hash.includes('type=invite') || 
+                         window.location.search.includes('type=invite')
         const isNewUserNoProfile = !session.user.user_metadata?.full_name
         
-        if ((isInviteToken || isNewUserNoProfile) && 
+        if ((isInvite || isNewUserNoProfile) && 
             location.pathname !== '/accept-invite' && 
             location.pathname !== '/auth' && 
             location.pathname !== '/reset-password' && 
@@ -71,7 +73,7 @@ function App() {
     })
 
     return () => subscription.unsubscribe()
-  }, [navigate, location.pathname])
+  }, [navigate, location.pathname, initialInvite])
 
   if (configError) {
     return (
@@ -94,7 +96,11 @@ function App() {
     )
   }
 
-  if (loading) {
+  // Prevent flashing of dashboard if we are processing an invite or profile completeness
+  const isInviteFlow = initialInvite || (session?.user && !session.user.user_metadata?.full_name)
+  const shouldShowLoader = loading || (isInviteFlow && location.pathname === '/')
+
+  if (shouldShowLoader) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
         <Loader2 style={{ color: 'var(--liquid-gold)', animation: 'spin 1s linear infinite' }} size={48} />

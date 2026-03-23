@@ -17,11 +17,19 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
+    // Check for invite as soon as possible
+    const initialHash = window.location.hash
+    const initialSearch = window.location.search
+
     const initAuth = async () => {
       try {
         const { data: { session }, error } = await supabase.auth.getSession()
         if (error) throw error
         setSession(session)
+        
+        if (initialHash.includes('type=invite') || initialSearch.includes('type=invite')) {
+          navigate('/accept-invite', { replace: true })
+        }
       } catch (error) {
         console.error('Auth check failed:', error.message)
         if (error.message.includes('URL') || error.message.includes('fetch')) {
@@ -37,24 +45,28 @@ function App() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log('Auth event:', event)
       if (event === 'PASSWORD_RECOVERY') {
-        console.log('Password recovery detected, current path:', location.pathname)
         if (location.pathname !== '/update-password') {
           navigate('/update-password')
         }
       }
       
-      // Handle Invitations
-      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
-        const isInvite = window.location.hash.includes('type=invite') || 
-                         window.location.search.includes('type=invite') ||
-                         session?.user?.app_metadata?.provider === 'email' && !session?.user?.last_sign_in_at
+      // Handle Invitations & New Users without profile
+      if (session?.user) {
+        const hash = window.location.hash
+        const search = window.location.search
+        const isInviteToken = hash.includes('type=invite') || search.includes('type=invite') || initialHash.includes('type=invite')
+        const isNewUserNoProfile = !session.user.user_metadata?.full_name
         
-        if (isInvite && location.pathname !== '/accept-invite') {
-           navigate('/accept-invite')
+        if ((isInviteToken || isNewUserNoProfile) && 
+            location.pathname !== '/accept-invite' && 
+            location.pathname !== '/auth' && 
+            location.pathname !== '/reset-password' && 
+            location.pathname !== '/update-password') {
+           navigate('/accept-invite', { replace: true })
         }
       }
+      
       setSession(session)
     })
 
